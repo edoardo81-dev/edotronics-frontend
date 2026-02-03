@@ -1,0 +1,424 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #07090c;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+#root {
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* =========================
+   EDOTRONICS — BLACK & GOLD THEME
+   ========================= */
+
+:root {
+  --bg: #07090c;
+  --bg2: #0b0f15;
+  --card: rgba(16, 18, 24, 0.85);
+  --border: rgba(212, 175, 55, 0.45);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.65);
+
+  --gold: #d4af37;
+  --gold2: #f5d77a;
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+/* Background elegante */
+.edo-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(1000px 600px at 20% 10%, rgba(212, 175, 55, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 85% 20%, rgba(245, 215, 122, 0.08), transparent 65%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  color: var(--text);
+}
+
+/* Card dark con gold outline */
+.edo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(212, 175, 55, 0.10) inset;
+  backdrop-filter: blur(12px);
+}
+
+/* =========================
+   LOGO SVG (ARCO ∩ + 3D SOTTO)
+   ========================= */
+
+.edo-brand {
+  width: min(900px, 100%);
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.edo-logo {
+  width: min(920px, 100%);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+  user-select: none;
+}
+
+/* sottotitolo (alzato) */
+.edo-subtitle {
+  margin-top: -40px;
+  font-size: 21px;
+  opacity: 0.85;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   STELLINE LATERALI
+   ========================= */
+
+.edo-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.edo-star {
+  position: absolute;
+  color: rgba(245, 215, 122, 0.95);
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, 0.70),
+    0 0 22px rgba(212, 175, 55, 0.35);
+  opacity: 0.9;
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+
+.edo-star.small {
+  font-size: 14px;
+  animation-duration: 1.6s;
+}
+.edo-star.med {
+  font-size: 18px;
+  animation-duration: 2.1s;
+}
+.edo-star.big {
+  font-size: 22px;
+  animation-duration: 2.6s;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    transform: scale(0.90);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* =========================
+   TABS
+   ========================= */
+
+.edo-tabbar {
+  display: flex;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.edo-tab {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  color: var(--muted);
+  background: transparent;
+}
+
+.edo-tab.active {
+  color: #101216;
+  background: linear-gradient(180deg, var(--gold2), var(--gold));
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.20);
+}
+
+/* =========================
+   INPUT
+   ========================= */
+
+.edo-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+  transition: 0.18s ease;
+}
+
+.edo-input:focus {
+  border-color: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.14);
+}
+
+/* =========================
+   BOTTONI
+   ========================= */
+
+.edo-btn-primary {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #101216;
+  background: linear-gradient(180deg, var(--gold2), var(--gold));
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.18);
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.edo-btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+/* Scimmietta con bordino gold */
+.edo-icon-btn {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.80);
+  padding: 6px;
+  border-radius: 12px;
+  transition: 0.12s ease;
+}
+
+.edo-icon-btn:hover {
+  color: rgba(245, 215, 122, 0.95);
+  background: rgba(212, 175, 55, 0.10);
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.10);
+}
+
+/* =========================
+   GUEST BUTTON ("Entra nel catalogo senza credenziali")
+   ========================= */
+
+.edo-guest button,
+.edo-guest a,
+.edo-guest [role="button"],
+.edo-guest div {
+  width: 100% !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+
+  color: var(--gold2) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(212, 175, 55, 0.40) !important;
+  transition: 0.12s ease;
+}
+
+.edo-guest button:hover,
+.edo-guest a:hover,
+.edo-guest [role="button"]:hover,
+.edo-guest div:hover {
+  border-color: rgba(212, 175, 55, 0.75) !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+}
+
+/* =========================
+   BADGE / CHIP (GLOBALI)
+   ========================= */
+
+.edo-badge,
+.badge,
+.chip,
+.pill,
+.user-badge,
+.role-badge,
+.guest-badge,
+[class*="badge"],
+[class*="chip"],
+[class*="pill"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.88) !important;
+  border: 1px solid rgba(212, 175, 55, 0.80) !important;
+  color: rgba(245, 215, 122, 0.98) !important;
+
+  font-weight: 900 !important;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.75),
+    0 0 0 4px rgba(212, 175, 55, 0.14);
+
+  backdrop-filter: blur(12px);
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+.edo-badge::before {
+  content: "●";
+  font-size: 10px;
+  color: #d4af37;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+}
+
+/* =========================
+   TOAST / NOTIFICHE
+   ========================= */
+
+/* React-Toastify */
+.Toastify__toast {
+  background: rgba(0, 0, 0, 0.88) !important;
+  border: 1px solid rgba(212, 175, 55, 0.70) !important;
+  color: rgba(245, 215, 122, 0.98) !important;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.75),
+    0 0 0 4px rgba(212, 175, 55, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.Toastify__toast-body {
+  color: rgba(245, 215, 122, 0.98) !important;
+  font-weight: 800 !important;
+}
+
+/* React-Hot-Toast */
+div[role="status"] {
+  background: rgba(0, 0, 0, 0.88) !important;
+  border: 1px solid rgba(212, 175, 55, 0.70) !important;
+  color: rgba(245, 215, 122, 0.98) !important;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.75),
+    0 0 0 4px rgba(212, 175, 55, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* =========================
+   MODAL / DIALOG — Accesso come ospite (FIX VERO)
+   ========================= */
+
+/* Se usi <dialog> */
+dialog {
+  background: rgba(0, 0, 0, 0.92) !important;
+  color: rgba(245, 215, 122, 0.98) !important;
+  border: 1px solid rgba(212, 175, 55, 0.75) !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.85),
+    0 0 0 4px rgba(212, 175, 55, 0.10) !important;
+
+  backdrop-filter: blur(12px) !important;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Se invece è un div con role="dialog" o classi custom */
+[role="dialog"],
+.modal,
+.popup,
+.overlay-content {
+  background: rgba(0, 0, 0, 0.92) !important;
+  color: rgba(245, 215, 122, 0.98) !important;
+  border: 1px solid rgba(212, 175, 55, 0.75) !important;
+  border-radius: 16px !important;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.85),
+    0 0 0 4px rgba(212, 175, 55, 0.10) !important;
+
+  backdrop-filter: blur(12px) !important;
+}
+
+/* Bottoni dentro al modal */
+dialog button,
+[role="dialog"] button {
+  border-radius: 12px !important;
+  padding: 10px 14px !important;
+  font-weight: 800 !important;
+}
+
+/* Annulla (outline) */
+dialog button:first-of-type,
+[role="dialog"] button:first-of-type {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  color: rgba(245, 215, 122, 0.95) !important;
+}
+
+/* Conferma (gold) */
+dialog button:last-of-type,
+[role="dialog"] button:last-of-type {
+  background: linear-gradient(180deg, var(--gold2), var(--gold)) !important;
+  border: 0 !important;
+  color: #101216 !important;
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.18) !important;
+}
+
+
+/* =========================
+   MOBILE NAV (Option 1)
+   - SideMenu hidden on mobile
+   - "Ordini" link in NavbarTop visible only on mobile
+   ========================= */
+
+.edo-mobile-only {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .edo-sidemenu {
+    display: none !important;
+  }
+
+  .edo-mobile-only {
+    display: inline-flex !important;
+  }
+}
