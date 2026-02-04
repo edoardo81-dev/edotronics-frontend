@@ -23,7 +23,6 @@ export default function LoginPage() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPwd, setShowPwd] = useState(false);
 
   const [firstName, setFirstName] = useState("");
@@ -142,9 +141,10 @@ export default function LoginPage() {
 
   return (
     <div className="edo-bg edo-login-shell" style={shell}>
-      {/* ====== BACKGROUND FIXED LAYER (non si muove mai) ====== */}
+      {/* ====== BACKGROUND FIXED LAYER ====== */}
       <div
         aria-hidden="true"
+        className="edo-login-bg"
         style={{
           ...bgFixed,
           backgroundImage: 'url("/images/products/edotronics-login-bg.png")',
@@ -154,7 +154,7 @@ export default function LoginPage() {
       {/* overlay fixed per leggibilità */}
       <div className="edo-login-overlay" style={overlayFixed} aria-hidden="true" />
 
-      {/* ====== SCROLL CONTAINER (scrolla la pagina, non la card) ====== */}
+      {/* ====== SCROLL CONTAINER ====== */}
       <div
         className="edo-login-scroll"
         style={{
@@ -187,12 +187,14 @@ export default function LoginPage() {
           </div>
 
           <style>{`
-            /* overlay come da tua versione (desktop) */
+            /* DESKTOP/TABLET */
             .edo-login-overlay { background: rgba(0,0,0,0.38); }
-            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.44); } }
+            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.34); } }
 
-            /* ✅ MOBILE: rendiamo l'overlay più luminoso (non "nero pieno") */
-            @media (max-width: 520px) { .edo-login-overlay { background: rgba(0,0,0,0.42); } }
+            /* ✅ iPHONE: meno “nero”, più luminoso */
+            @media (max-width: 520px) {
+              .edo-login-overlay { background: rgba(0,0,0,0.22); }
+            }
 
             .edo-login-card {
               background: rgba(0,0,0,0.55);
@@ -201,21 +203,21 @@ export default function LoginPage() {
               box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             }
 
-            /* ✅ MOBILE: card un filo più chiara e più “goldy” */
+            /* ✅ iPHONE: card un filo più chiara (senza “lavare” i campi) */
             @media (max-width: 520px) {
               .edo-login-card {
-                background: rgba(0,0,0,0.46);
-                border-color: rgba(212,175,55,0.42);
-                backdrop-filter: blur(12px);
+                background: rgba(0,0,0,0.42);
+                border-color: rgba(212,175,55,0.45);
               }
               .edo-starfield { display: none !important; }
             }
 
-            /* ✅ MOBILE: sfondo un po' più presente (più vivo) */
+            /* ✅ iPHONE: fai “vivere” lo sfondo (più grande + più brillante) */
             @media (max-width: 520px) {
-              .edo-login-shell .edo-login-bg-tweak {
-                background-size: 95% auto;
-                background-position: center 18%;
+              .edo-login-bg {
+                background-size: 110% auto !important;
+                background-position: center 14% !important;
+                filter: brightness(1.25) contrast(1.10) saturate(1.10);
               }
             }
           `}</style>
@@ -309,9 +311,7 @@ export default function LoginPage() {
                       formRef.current?.requestSubmit();
                       return;
                     }
-                    if (mode === "register") {
-                      handleEnterNext(e, firstNameRef);
-                    }
+                    if (mode === "register") handleEnterNext(e, firstNameRef);
                   }}
                 />
 
@@ -430,9 +430,6 @@ const shell: React.CSSProperties = {
   overflowY: "visible",
 };
 
-/**
- * Sfondo fisso vero
- */
 const bgFixed: React.CSSProperties = {
   position: "fixed",
   inset: 0,
@@ -451,9 +448,6 @@ const overlayFixed: React.CSSProperties = {
   zIndex: 1,
 };
 
-/**
- * Scroll pagina
- */
 const scrollContainer: React.CSSProperties = {
   position: "relative",
   zIndex: 2,
@@ -492,10 +486,7 @@ const lbl: React.CSSProperties = {
   color: "rgba(255,255,255,0.76)",
 };
 
-/**
- * ✅ IMPORTANTISSIMO: NON mettere border: 0, altrimenti uccidi .edo-input del CSS globale.
- * Qui aggiungiamo un bordino dorato leggero (sempre visibile anche su mobile).
- */
+// bordino oro (sempre visibile)
 const inp: React.CSSProperties = {
   width: "100%",
   padding: 10,
