@@ -422,3 +422,44 @@ dialog button:last-of-type,
     display: inline-flex !important;
   }
 }
+
+/* =========================
+   iPhone / iOS Safari FIX — Login inputs leggibili
+   ========================= */
+
+/* iOS Safari: evita testo "grigio spento" negli input */
+@supports (-webkit-touch-callout: none) {
+  .edo-input {
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.92);
+    caret-color: rgba(245, 215, 122, 0.98);
+    border: 1px solid rgba(212, 175, 55, 0.45); /* bordino gold visibile */
+    background: rgba(0, 0, 0, 0.28);
+  }
+
+  .edo-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+    opacity: 1;
+  }
+
+  /* se Safari ti "azzurra" gli input autofill */
+  input.edo-input:-webkit-autofill,
+  input.edo-input:-webkit-autofill:hover,
+  input.edo-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.28) inset;
+    transition: background-color 9999s ease-out 0s;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+  }
+}
+
+/* MOBILE: overlay meno “nero” sulla login (più luminoso) */
+@media (max-width: 520px) {
+  .edo-login-overlay {
+    background: rgba(0, 0, 0, 0.42) !important;
+  }
+
+  .edo-login-card {
+    background: rgba(0, 0, 0, 0.46) !important;
+    border-color: rgba(212, 175, 55, 0.42) !important;
+  }
+}

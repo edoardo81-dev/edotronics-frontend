@@ -136,7 +136,7 @@ export default function LoginPage() {
     next?.current?.focus();
   }
 
-  // posizionamento: puoi ritoccare qui senza far muovere lo sfondo
+  // posizionamento
   const topLogin = "clamp(260px, 14vh, 340px)";
   const topRegister = "clamp(265px, 12vh, 340px)";
 
@@ -187,21 +187,36 @@ export default function LoginPage() {
           </div>
 
           <style>{`
-            /* overlay come da tua versione */
+            /* overlay come da tua versione (desktop) */
             .edo-login-overlay { background: rgba(0,0,0,0.38); }
-            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.55); } }
-            @media (max-width: 520px) { .edo-login-overlay { background: rgba(0,0,0,0.68); } }
+            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.44); } }
+
+            /* ✅ MOBILE: rendiamo l'overlay più luminoso (non "nero pieno") */
+            @media (max-width: 520px) { .edo-login-overlay { background: rgba(0,0,0,0.42); } }
 
             .edo-login-card {
               background: rgba(0,0,0,0.55);
-              border: 1px solid rgba(212,175,55,0.28);
+              border: 1px solid rgba(212,175,55,0.32);
               backdrop-filter: blur(10px);
               box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             }
 
+            /* ✅ MOBILE: card un filo più chiara e più “goldy” */
             @media (max-width: 520px) {
-              .edo-login-card { background: rgba(0,0,0,0.62); backdrop-filter: blur(12px); }
+              .edo-login-card {
+                background: rgba(0,0,0,0.46);
+                border-color: rgba(212,175,55,0.42);
+                backdrop-filter: blur(12px);
+              }
               .edo-starfield { display: none !important; }
+            }
+
+            /* ✅ MOBILE: sfondo un po' più presente (più vivo) */
+            @media (max-width: 520px) {
+              .edo-login-shell .edo-login-bg-tweak {
+                background-size: 95% auto;
+                background-position: center 18%;
+              }
             }
           `}</style>
 
@@ -411,15 +426,12 @@ export default function LoginPage() {
 const shell: React.CSSProperties = {
   position: "relative",
   minHeight: "100vh",
-  overflowX: "hidden",  // ok
-  overflowY: "visible", // ✅ la pagina può scrollare
+  overflowX: "hidden",
+  overflowY: "visible",
 };
 
-
 /**
- * Sfondo fisso vero:
- * - sta fuori dallo scroll container
- * - NON si muove passando login/register
+ * Sfondo fisso vero
  */
 const bgFixed: React.CSSProperties = {
   position: "fixed",
@@ -427,7 +439,7 @@ const bgFixed: React.CSSProperties = {
   zIndex: 0,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center 20%",
-  backgroundSize: "80% auto", // ✅ ~20% più piccolo
+  backgroundSize: "80% auto",
   backgroundColor: "#070707",
   transform: "translateZ(0)",
 };
@@ -440,15 +452,12 @@ const overlayFixed: React.CSSProperties = {
 };
 
 /**
- * Questo è IL punto del fix:
- * - è lui a scrollare (pagina intera)
- * - la card NON avrà mai scrollbar
+ * Scroll pagina
  */
 const scrollContainer: React.CSSProperties = {
   position: "relative",
   zIndex: 2,
 
-  // ✅ IMPORTANTISSIMO: niente scroll interno
   height: "auto",
   overflowY: "visible",
   overflowX: "hidden",
@@ -458,9 +467,8 @@ const scrollContainer: React.CSSProperties = {
   alignItems: "center",
   width: "100%",
   padding: 16,
-  paddingBottom: "clamp(24px, 6vh, 64px)",
+  paddingBottom: "clamp(28px, 7vh, 72px)",
 };
-
 
 const formArea: React.CSSProperties = {
   position: "relative",
@@ -473,7 +481,7 @@ const card: React.CSSProperties = {
   padding: 16,
   position: "relative",
   zIndex: 2,
-  overflow: "visible", // ✅ mai scroll interno
+  overflow: "visible",
 };
 
 const lbl: React.CSSProperties = {
@@ -481,14 +489,19 @@ const lbl: React.CSSProperties = {
   fontSize: 13,
   marginTop: 10,
   marginBottom: 4,
-  color: "rgba(255,255,255,0.72)",
+  color: "rgba(255,255,255,0.76)",
 };
 
+/**
+ * ✅ IMPORTANTISSIMO: NON mettere border: 0, altrimenti uccidi .edo-input del CSS globale.
+ * Qui aggiungiamo un bordino dorato leggero (sempre visibile anche su mobile).
+ */
 const inp: React.CSSProperties = {
   width: "100%",
   padding: 10,
-  borderRadius: 10,
-  border: "0px",
+  borderRadius: 12,
+  border: "1px solid rgba(212,175,55,0.35)",
+  background: "rgba(0,0,0,0.28)",
 };
 
 const pwdWrap: React.CSSProperties = {
@@ -501,8 +514,9 @@ const pwdWrap: React.CSSProperties = {
 const inpPwd: React.CSSProperties = {
   width: "100%",
   padding: 10,
-  borderRadius: 10,
-  border: "0px",
+  borderRadius: 12,
+  border: "1px solid rgba(212,175,55,0.35)",
+  background: "rgba(0,0,0,0.28)",
 };
 
 const monkeyBtn: React.CSSProperties = {
@@ -522,7 +536,7 @@ const msgStyle: React.CSSProperties = {
   borderRadius: 10,
   background: "rgba(212,175,55,0.12)",
   border: "1px solid rgba(212,175,55,0.35)",
-  color: "rgba(255,255,255,0.86)",
+  color: "rgba(255,255,255,0.90)",
 };
 
 const okMsgStyle: React.CSSProperties = {
