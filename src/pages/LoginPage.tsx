@@ -23,6 +23,7 @@ export default function LoginPage() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPwd, setShowPwd] = useState(false);
 
   const [firstName, setFirstName] = useState("");
@@ -141,7 +142,7 @@ export default function LoginPage() {
 
   return (
     <div className="edo-bg edo-login-shell" style={shell}>
-      {/* ====== BACKGROUND FIXED LAYER ====== */}
+      {/* ====== BACKGROUND FIXED ====== */}
       <div
         aria-hidden="true"
         className="edo-login-bg"
@@ -151,8 +152,11 @@ export default function LoginPage() {
         }}
       />
 
-      {/* overlay fixed per leggibilità */}
+      {/* overlay principale (schiarito su mobile) */}
       <div className="edo-login-overlay" style={overlayFixed} aria-hidden="true" />
+
+      {/* overlay extra “gold glow” (solo mobile) */}
+      <div className="edo-login-glow" style={glowFixed} aria-hidden="true" />
 
       {/* ====== SCROLL CONTAINER ====== */}
       <div
@@ -187,38 +191,45 @@ export default function LoginPage() {
           </div>
 
           <style>{`
-            /* DESKTOP/TABLET */
-            .edo-login-overlay { background: rgba(0,0,0,0.38); }
-            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.34); } }
+            /* ===== overlay ===== */
+            .edo-login-overlay { background: rgba(0,0,0,0.32); }
 
-            /* ✅ iPHONE: meno “nero”, più luminoso */
+            /* tablet: un filo più scuro */
+            @media (max-width: 860px) { .edo-login-overlay { background: rgba(0,0,0,0.38); } }
+
+            /* ✅ iPhone: MOLTO più chiaro */
+            @media (max-width: 520px) { .edo-login-overlay { background: rgba(0,0,0,0.22); } }
+
+            /* ===== glow mobile (gold) ===== */
+            .edo-login-glow { display: none; }
             @media (max-width: 520px) {
-              .edo-login-overlay { background: rgba(0,0,0,0.22); }
+              .edo-login-glow {
+                display: block;
+                background:
+                  radial-gradient(900px 520px at 20% 14%, rgba(212,175,55,0.24), transparent 62%),
+                  radial-gradient(820px 480px at 85% 22%, rgba(245,215,122,0.20), transparent 65%),
+                  radial-gradient(700px 420px at 50% 70%, rgba(212,175,55,0.12), transparent 70%);
+                mix-blend-mode: screen;
+                opacity: 0.92;
+              }
             }
 
+            /* ===== card ===== */
             .edo-login-card {
-              background: rgba(0,0,0,0.55);
-              border: 1px solid rgba(212,175,55,0.32);
+              background: rgba(0,0,0,0.52);
+              border: 1px solid rgba(212,175,55,0.34);
               backdrop-filter: blur(10px);
               box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             }
 
-            /* ✅ iPHONE: card un filo più chiara (senza “lavare” i campi) */
+            /* ✅ mobile: card ancora più “light” */
             @media (max-width: 520px) {
               .edo-login-card {
-                background: rgba(0,0,0,0.42);
-                border-color: rgba(212,175,55,0.45);
+                background: rgba(0,0,0,0.40);
+                border-color: rgba(212,175,55,0.46);
+                backdrop-filter: blur(12px);
               }
               .edo-starfield { display: none !important; }
-            }
-
-            /* ✅ iPHONE: fai “vivere” lo sfondo (più grande + più brillante) */
-            @media (max-width: 520px) {
-              .edo-login-bg {
-                background-size: 110% auto !important;
-                background-position: center 14% !important;
-                filter: brightness(1.25) contrast(1.10) saturate(1.10);
-              }
             }
           `}</style>
 
@@ -311,7 +322,9 @@ export default function LoginPage() {
                       formRef.current?.requestSubmit();
                       return;
                     }
-                    if (mode === "register") handleEnterNext(e, firstNameRef);
+                    if (mode === "register") {
+                      handleEnterNext(e, firstNameRef);
+                    }
                   }}
                 />
 
@@ -448,9 +461,16 @@ const overlayFixed: React.CSSProperties = {
   zIndex: 1,
 };
 
+const glowFixed: React.CSSProperties = {
+  position: "fixed",
+  inset: 0,
+  pointerEvents: "none",
+  zIndex: 2, // sopra overlay
+};
+
 const scrollContainer: React.CSSProperties = {
   position: "relative",
-  zIndex: 2,
+  zIndex: 3, // sopra i layer fissi
 
   height: "auto",
   overflowY: "visible",
@@ -483,16 +503,15 @@ const lbl: React.CSSProperties = {
   fontSize: 13,
   marginTop: 10,
   marginBottom: 4,
-  color: "rgba(255,255,255,0.76)",
+  color: "rgba(255,255,255,0.78)",
 };
 
-// bordino oro (sempre visibile)
 const inp: React.CSSProperties = {
   width: "100%",
   padding: 10,
   borderRadius: 12,
   border: "1px solid rgba(212,175,55,0.35)",
-  background: "rgba(0,0,0,0.28)",
+  background: "rgba(0,0,0,0.24)",
 };
 
 const pwdWrap: React.CSSProperties = {
@@ -507,7 +526,7 @@ const inpPwd: React.CSSProperties = {
   padding: 10,
   borderRadius: 12,
   border: "1px solid rgba(212,175,55,0.35)",
-  background: "rgba(0,0,0,0.28)",
+  background: "rgba(0,0,0,0.24)",
 };
 
 const monkeyBtn: React.CSSProperties = {
