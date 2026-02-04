@@ -1,73 +1,96 @@
-# React + TypeScript + Vite
+# Edotronics — Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend della demo **Edotronics**, un e-commerce/gestionale didattico per articoli di elettronica.
 
-Currently, two official plugins are available:
+🌐 **Live App (Render):** https://edotronics-frontend.onrender.com  
+🔗 **Backend (Render):** https://edotronics-backend.onrender.com  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Descrizione
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Esercizio didattico sulle **relazioni bidirezionali tra entità** che ho implementato realizzando un e-commerce/gestionale per una piattaforma di articoli di elettronica.
+Puoi entrare nella piattaforma come **ospite** e consultare il catalogo cliccando il tasto **"Entra nel catalogo senza credenziali"**, ma per fare acquisti
+devi effettuare la **registrazione** e inserire le tue credenziali.
 
-## Expanding the ESLint configuration
+✅ Per consultare gli ordini di prova del cliente fittizio "Mario Rossi":
+usa:
+- Username: user
+- Password: user
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+✅ Per entrare come **amministratore** ed avere pieno controllo su:
+- gestione ordini
+- gestione prodotti (CRUD completo)
+- statistiche vendite
+- creazione promozioni
+- inserimento nuovi prodotti
+- gestione **Stock Alerts** (avvisi automatici quando rimane 1 solo prodotto in magazzino, eccetto i prodotti della sezione “usato”)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+usa:
+- **Username:** `admin`
+- **Password:** `admin`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Funzionalità principali
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Modalità Ospite
+- Accesso al catalogo senza login
+- Ricerca e navigazione categorie
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Area Utente (USER)
+- Carrello e creazione ordine
+- Pagina profilo
+- “I miei ordini” (`/me/orders`)
+- Gestione password / dati profilo (area personale)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Area Admin (ADMIN)
+- Dashboard prodotti (CRUD completo)
+- Gestione ordini
+- Gestione promozioni
+- Stock alerts
+- Aggiornamenti in tempo reale inventario (SSE)
+
+---
+
+## Stack Tecnologico
+
+- **React + TypeScript**
+- **Vite**
+- **React Router**
+- **Axios** (interceptors con gestione token)
+- UI custom **Black & Gold** (CSS + inline styles)
+- **SSE (Server-Sent Events)** lato client per aggiornamenti realtime inventario
+
+---
+
+## Configurazione ambiente
+
+Il frontend legge la URL del backend da variabile:
+
+- `VITE_API_URL`
+
+Esempio (`.env` in locale):
+
+```env
+VITE_API_URL=http://localhost:8080
+Su Render va configurata in Environment Variables:
+
+VITE_API_URL = https://edotronics-backend.onrender.com
+
+Avvio in locale
+npm install
+npm run dev
+Build:
+
+npm run build
+npm run preview
+Note Deploy (Render)
+Progetto deployato come Static Site
+
+Rewrites configurati per SPA routing (refresh su /me/orders ecc.)
+
+Link utili
+Frontend (live): https://edotronics-frontend.onrender.com
+
+Backend (live): https://edotronics-backend.onrender.com
